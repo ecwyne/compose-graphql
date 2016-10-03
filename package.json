@@ -1,0 +1,29 @@
+{
+  "name": "compose-graphql",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "compile": "babel --presets es2015 -d dist/ index.js",
+    "prepublish": "npm run compile"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ecwyne/compose-graphql.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ecwyne/compose-graphql/issues"
+  },
+  "homepage": "https://github.com/ecwyne/compose-graphql#readme",
+  "dependencies": {
+    "ramda": "^0.22.1",
+    "react-apollo": "^0.5.7"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.16.0",
+    "babel-preset-es2015": "^6.16.0"
+  }
+}
