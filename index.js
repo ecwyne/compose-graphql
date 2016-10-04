@@ -37,20 +37,23 @@ const normalize = (obj = {}) => {
 // Continue returning function to collect more arguments until a component is received
 // Throws if component is not the final argument.
 const collectArgs = (...args) => {
-	args = R.flatten(args).map(normalize);
+	args = R.flatten(args).map(normalize); // documents can be passed in array or as individual arguments
 	const componentIndex = R.findIndex(isComponent, args);
 	if (componentIndex === -1){
+		// no component given, continue to collect args
 		return (...newArgs) => collectArgs(...args, ...newArgs);
 	} else if (componentIndex !== args.length - 1){
+		// component found before end of array
 		throw new Error('React Component MUST be final argument to composeGraphQL');
 	} else {
+		// everything looks good
 		return composeGraphQL(args);
 	}
 };
 
 // arr => arr.map(e => graphql(e, e.options)).reduceRight()
 // GraphQL operations are mapped to HOCs using graphql()
-// reduceRight is used to compoes all of the HOCs together
+// reduceRight is used to compose all of the HOCs together
 const composeGraphQL = arr => {
 	return arr.map(val => {
 		if (isComponent(val)){
@@ -79,7 +82,7 @@ const composeGraphQL = arr => {
 			throw new Error(`composeQraphQL is currently not able to compose ${operationType} operations`);
 		}
 
-	}).reduceRight((acc, val) => val(acc));
+	}).reduceRight((acc, val) => val(acc)); // op3(op2(op1(component)))
 };
 
 export default collectArgs;
